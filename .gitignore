@@ -31,6 +31,16 @@ pnpm-debug.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# vercel
+.vercel
+
+# local AI skill caches (not part of the product)
+.agents/
+.claude/
+.windsurf/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/lib/generated/prisma
