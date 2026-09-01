@@ -11,7 +11,7 @@ export function RevenueChart({ data }: { data: { month: string; revenue: number 
           <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#71717A' }} axisLine={false} tickLine={false} />
           <YAxis tick={{ fontSize: 12, fill: '#71717A' }} axisLine={false} tickLine={false} width={48} />
           <Tooltip
-            formatter={(value: number) => [`$${value.toFixed(2)}`, 'Receita']}
+            formatter={(value) => [`$${Number(value ?? 0).toFixed(2)}`, 'Receita']}
             contentStyle={{ borderRadius: 8, border: '1px solid #E4E4E7', fontSize: 12 }}
           />
           <Bar dataKey="revenue" fill="#6366F1" radius={[4, 4, 0, 0]} />
