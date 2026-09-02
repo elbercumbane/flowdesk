@@ -23,7 +23,13 @@ const navItems = [
   { href: '/app/settings', label: 'Settings', icon: Settings },
 ]
 
-export function AppSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
+export function AppSidebarNav({
+  isDemo,
+  onNavigate,
+}: {
+  isDemo?: boolean
+  onNavigate?: () => void
+}) {
   const pathname = usePathname()
 
   return (
@@ -32,11 +38,14 @@ export function AppSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
         const isActive = item.href === '/app'
           ? pathname === '/app'
           : pathname.startsWith(item.href)
+        const href = isDemo
+          ? `/demo?next=${encodeURIComponent(item.href)}`
+          : item.href
 
         return (
           <a
             key={item.href}
-            href={item.href}
+            href={href}
             onClick={onNavigate}
             aria-current={isActive ? 'page' : undefined}
             className={`group relative flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-all duration-200 ${

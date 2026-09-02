@@ -52,9 +52,9 @@ export default async function SignupPage({
         </p>
         <p className="text-center text-sm text-zinc-500">
           Or{' '}
-          <Link href="/demo" className="text-[#6366F1] hover:underline">
+          <a href="/demo" className="text-[#6366F1] hover:underline">
             view the sample organization
-          </Link>
+          </a>
         </p>
       </form>
     </AuthBackground>

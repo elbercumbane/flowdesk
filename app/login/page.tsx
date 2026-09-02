@@ -1,7 +1,10 @@
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { login } from './actions'
 import Link from 'next/link'
 import { AuthBackground } from '@/components/auth-background'
 import { EMAIL_PATTERN, EMAIL_TITLE } from '@/lib/email'
+import { DEMO_COOKIE } from '@/lib/demo'
 
 export default async function LoginPage({
   searchParams,
@@ -9,6 +12,11 @@ export default async function LoginPage({
   searchParams: Promise<{ error?: string; returnTo?: string }>
 }) {
   const { error, returnTo } = await searchParams
+  const cookieStore = await cookies()
+  if (!error && cookieStore.get(DEMO_COOKIE)?.value === '1') {
+    const next = returnTo?.startsWith('/app') ? returnTo : '/app'
+    redirect(`/demo?next=${encodeURIComponent(next)}`)
+  }
   const signupHref = returnTo
     ? `/signup?returnTo=${encodeURIComponent(returnTo)}`
     : '/signup'
@@ -61,12 +69,12 @@ export default async function LoginPage({
           <p className="mt-1 text-sm text-zinc-500">
             Open the sample organization with 15 customers and pre-filled data.
           </p>
-          <Link
+          <a
             href="/demo"
             className="mt-3 inline-flex w-full items-center justify-center rounded-md border border-[#6366F1] px-3 py-2 text-sm font-medium text-[#4F46E5] hover:bg-[#EEF2FF]"
           >
             View sample organization
-          </Link>
+          </a>
         </div>
       </div>
     </AuthBackground>

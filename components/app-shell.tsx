@@ -26,7 +26,7 @@ export function AppShell({
         <div className="h-5 w-5 rounded-md bg-gradient-to-br from-[#818CF8] to-[#6366F1] shadow-sm shadow-indigo-300/50" />
         <span className="text-sm font-medium">FlowDesk</span>
       </div>
-      <AppSidebarNav onNavigate={() => setMobileOpen(false)} />
+      <AppSidebarNav isDemo={isDemo} onNavigate={() => setMobileOpen(false)} />
       <div className="mt-auto border-t pt-3 px-2 space-y-2">
         <p className="text-xs text-zinc-500 truncate">{userEmail}</p>
         {isDemo ? (

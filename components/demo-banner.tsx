@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 export function DemoBanner({ orgName }: { orgName: string }) {
   return (
     <div className="fd-reveal border-b border-indigo-200 bg-[#EEF2FF] px-4 py-3 sm:px-6">
@@ -13,24 +11,24 @@ export function DemoBanner({ orgName }: { orgName: string }) {
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Link
+          <a
             href="/demo/exit?to=login"
             className="inline-flex items-center justify-center rounded-md border border-[#6366F1] bg-white px-3 py-1.5 text-sm font-medium text-[#4F46E5] hover:bg-indigo-50"
           >
             Sign in to your account
-          </Link>
-          <Link
+          </a>
+          <a
             href="/demo/exit?to=signup"
             className="inline-flex items-center justify-center rounded-md bg-[#6366F1] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#4F46E5] active:scale-[0.97] transition hover:shadow-lg hover:shadow-indigo-500/25"
           >
             Create a new account
-          </Link>
-          <Link
+          </a>
+          <a
             href="/demo/exit?to=org"
             className="inline-flex items-center justify-center rounded-md bg-[#312E81] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#1E1B4B]"
           >
             Create your organization
-          </Link>
+          </a>
         </div>
       </div>
     </div>

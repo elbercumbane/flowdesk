@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import { Toaster } from 'sonner'
 import { createClient } from '@/lib/supabase/server'
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { AppShell } from '@/components/app-shell'
 import { PageTransition } from '@/components/page-transition'
@@ -16,14 +16,21 @@ export default async function AppLayout({
   children: React.ReactNode
 }) {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-
-  if (!user) redirect('/login')
-
   const cookieStore = await cookies()
-  const isDemo =
-    cookieStore.get(DEMO_COOKIE)?.value === '1' ||
-    user.email === process.env.DEMO_EMAIL
+  const headerStore = await headers()
+  const { data: { user } } = await supabase.auth.getUser()
+  const isDemoCookie = cookieStore.get(DEMO_COOKIE)?.value === '1'
+
+  if (!user) {
+    if (isDemoCookie) {
+      const current = headerStore.get('x-flowdesk-pathname') || '/app'
+      const next = current.startsWith('/app') ? current : '/app'
+      redirect(`/demo?next=${encodeURIComponent(next)}`)
+    }
+    redirect('/login')
+  }
+
+  const isDemo = isDemoCookie || user.email === process.env.DEMO_EMAIL
 
   let orgName = 'Demo'
   if (isDemo) {
