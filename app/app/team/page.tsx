@@ -12,7 +12,7 @@ export default async function TeamPage() {
     .select('organization_id, role')
     .eq('user_id', user.id)
     .limit(1)
-    .single()
+    .maybeSingle()
 
   if (!myMembership) redirect('/onboarding')
 

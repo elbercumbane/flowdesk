@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { DEMO_COOKIE, demoCookieOptions } from '@/lib/demo'
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request })
@@ -16,20 +17,43 @@ export async function updateSession(request: NextRequest) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({ request })
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            supabaseResponse.cookies.set(name, value, { ...options, path: '/' })
           )
         },
       },
     }
   )
 
-  const { data: { user } } = await supabase.auth.getUser()
+  let {
+    data: { user },
+  } = await supabase.auth.getUser()
 
-  // protege tudo dentro de /app, redirect para /login se não autenticado
-  if (!user && request.nextUrl.pathname.startsWith('/app')) {
+  const onApp = request.nextUrl.pathname.startsWith('/app')
+  const isDemo = request.cookies.get(DEMO_COOKIE)?.value === '1'
+
+  if (!user && onApp && isDemo) {
+    const email = process.env.DEMO_EMAIL
+    const password = process.env.DEMO_PASSWORD
+    if (email && password) {
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+      if (!error && data.user) {
+        user = data.user
+      }
+    }
+  }
+
+  if (!user && onApp) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
-    return NextResponse.redirect(url)
+    url.search = ''
+    const redirectRes = NextResponse.redirect(url)
+    supabaseResponse.cookies.getAll().forEach((cookie) => {
+      redirectRes.cookies.set(cookie.name, cookie.value)
+    })
+    if (isDemo) {
+      redirectRes.cookies.set(DEMO_COOKIE, '', { ...demoCookieOptions(), maxAge: 0 })
+    }
+    return redirectRes
   }
 
   return supabaseResponse

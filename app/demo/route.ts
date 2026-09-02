@@ -25,14 +25,12 @@ export async function GET(request: NextRequest) {
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value, options }) => {
-            redirectToApp.cookies.set(name, value, options)
+            redirectToApp.cookies.set(name, value, { ...options, path: '/' })
           })
         },
       },
     }
   )
-
-  await supabase.auth.signOut()
 
   const { error } = await supabase.auth.signInWithPassword({ email, password })
   if (error) {

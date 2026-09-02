@@ -1,6 +1,7 @@
 import { createCustomer } from './actions'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+import { EMAIL_PATTERN, EMAIL_TITLE } from '@/lib/email'
 
 export default async function NewCustomerPage({
   searchParams,
@@ -47,7 +48,7 @@ export default async function NewCustomerPage({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1">
               <label htmlFor="email" className="text-sm font-medium">Email</label>
-              <input id="email" name="email" type="email" className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
+              <input id="email" name="email" type="text" inputMode="email" autoComplete="email" pattern={EMAIL_PATTERN} title={EMAIL_TITLE} className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
             </div>
             <div className="space-y-1">
               <label htmlFor="phone" className="text-sm font-medium">Phone</label>

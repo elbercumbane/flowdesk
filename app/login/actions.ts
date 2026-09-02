@@ -5,6 +5,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { DEMO_COOKIE } from '@/lib/demo'
+import { isLooseEmail } from '@/lib/email'
 
 function safeReturnTo(value: FormDataEntryValue | null) {
   const path = typeof value === 'string' ? value : ''
@@ -15,9 +16,15 @@ function safeReturnTo(value: FormDataEntryValue | null) {
 export async function login(formData: FormData) {
   const supabase = await createClient()
 
-  const email = formData.get('email') as string
+  const email = String(formData.get('email') ?? '').trim()
   const password = formData.get('password') as string
   const returnTo = safeReturnTo(formData.get('returnTo'))
+
+  if (!isLooseEmail(email)) {
+    const q = new URLSearchParams({ error: 'Enter an email with @ and the mail server, e.g. name@company.com' })
+    if (returnTo !== '/app') q.set('returnTo', returnTo)
+    redirect(`/login?${q.toString()}`)
+  }
 
   const { error } = await supabase.auth.signInWithPassword({ email, password })
 
@@ -36,10 +43,16 @@ export async function login(formData: FormData) {
 export async function signup(formData: FormData) {
   const supabase = await createClient()
 
-  const email = formData.get('email') as string
+  const email = String(formData.get('email') ?? '').trim()
   const password = formData.get('password') as string
   const fullName = formData.get('fullName') as string
   const returnTo = safeReturnTo(formData.get('returnTo'))
+
+  if (!isLooseEmail(email)) {
+    const q = new URLSearchParams({ error: 'Enter an email with @ and the mail server, e.g. name@company.com' })
+    if (returnTo !== '/app') q.set('returnTo', returnTo)
+    redirect(`/signup?${q.toString()}`)
+  }
 
   const { error } = await supabase.auth.signUp({
     email,

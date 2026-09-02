@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { UserPlus, X, Copy, Check } from 'lucide-react'
 import { inviteMember, revokeInvitation } from './actions'
+import { EMAIL_PATTERN, EMAIL_TITLE } from '@/lib/email'
 
 function relField(rel: any, key: string) {
   if (!rel) return null
@@ -71,8 +72,12 @@ export function TeamView({
           <form action={handleInvite} className="flex flex-col sm:flex-row gap-3">
             <input
               name="email"
-              type="email"
+              type="text"
+              inputMode="email"
+              autoComplete="email"
               required
+              pattern={EMAIL_PATTERN}
+              title={EMAIL_TITLE}
               placeholder="email@example.com"
               className="flex-1 rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition"
             />

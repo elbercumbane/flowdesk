@@ -8,6 +8,8 @@ import { PageTransition } from '@/components/page-transition'
 import { ToastFlash } from '@/components/toast-flash'
 import { DEMO_COOKIE } from '@/lib/demo'
 
+export const dynamic = 'force-dynamic'
+
 export default async function AppLayout({
   children,
 }: {

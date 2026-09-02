@@ -1,6 +1,7 @@
 import { signup } from '../login/actions'
 import Link from 'next/link'
 import { AuthBackground } from '@/components/auth-background'
+import { EMAIL_PATTERN, EMAIL_TITLE } from '@/lib/email'
 
 export default async function SignupPage({
   searchParams,
@@ -34,7 +35,7 @@ export default async function SignupPage({
 
         <div className="space-y-1">
           <label htmlFor="email" className="text-sm font-medium">Email</label>
-          <input id="email" name="email" type="email" required className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
+          <input id="email" name="email" type="text" inputMode="email" autoComplete="email" required pattern={EMAIL_PATTERN} title={EMAIL_TITLE} className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
         </div>
 
         <div className="space-y-1">
