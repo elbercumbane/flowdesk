@@ -58,23 +58,23 @@ export function InvoiceDocument({
 
         <View style={styles.row}>
           <View>
-            <Text style={styles.label}>FACTURADO A</Text>
+            <Text style={styles.label}>BILLED TO</Text>
             <Text>{customerName}</Text>
             {customerEmail && <Text style={{ color: '#71717A' }}>{customerEmail}</Text>}
           </View>
           <View style={{ alignItems: 'flex-end' }}>
-            <Text style={styles.label}>DATA DE EMISSÃO</Text>
+            <Text style={styles.label}>ISSUE DATE</Text>
             <Text>{issueDate}</Text>
-            <Text style={[styles.label, { marginTop: 6 }]}>VENCIMENTO</Text>
+            <Text style={[styles.label, { marginTop: 6 }]}>DUE DATE</Text>
             <Text>{dueDate}</Text>
           </View>
         </View>
 
         <View style={styles.table}>
           <View style={styles.tableHeader}>
-            <Text style={[styles.colDesc, { color: '#71717A' }]}>Descrição</Text>
-            <Text style={[styles.colQty, { color: '#71717A' }]}>Qtd</Text>
-            <Text style={[styles.colPrice, { color: '#71717A' }]}>Preço</Text>
+            <Text style={[styles.colDesc, { color: '#71717A' }]}>Description</Text>
+            <Text style={[styles.colQty, { color: '#71717A' }]}>Qty</Text>
+            <Text style={[styles.colPrice, { color: '#71717A' }]}>Price</Text>
             <Text style={[styles.colSubtotal, { color: '#71717A' }]}>Subtotal</Text>
           </View>
           {items.map((item, i) => (
@@ -94,7 +94,7 @@ export function InvoiceDocument({
 
         {notes && (
           <View style={{ marginTop: 24 }}>
-            <Text style={styles.label}>NOTAS</Text>
+            <Text style={styles.label}>NOTES</Text>
             <Text style={{ color: '#3F3F46' }}>{notes}</Text>
           </View>
         )}

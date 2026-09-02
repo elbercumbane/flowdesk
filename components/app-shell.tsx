@@ -31,19 +31,19 @@ export function AppShell({
         {isDemo ? (
           <div className="flex flex-col gap-1">
             <a href="/demo/exit?to=login" className="text-xs font-medium text-[#4F46E5] hover:underline">
-              Entrar na tua conta
+              Sign in to your account
             </a>
             <a href="/demo/exit?to=signup" className="text-xs font-medium text-[#4F46E5] hover:underline">
-              Criar conta nova
+              Create a new account
             </a>
             <a href="/demo/exit?to=org" className="text-xs font-medium text-[#4F46E5] hover:underline">
-              Criar organização
+              Create an organization
             </a>
           </div>
         ) : (
           <form action={logout}>
             <button type="submit" className="text-xs font-medium text-zinc-600 hover:text-zinc-900">
-              Sair
+              Sign out
             </button>
           </form>
         )}
@@ -67,7 +67,7 @@ export function AppShell({
             <button
               onClick={() => setMobileOpen(false)}
               className="self-end p-1 text-zinc-500"
-              aria-label="Fechar menu"
+              aria-label="Close menu"
             >
               <X className="h-5 w-5" />
             </button>
@@ -78,7 +78,7 @@ export function AppShell({
 
       <div className="flex flex-1 flex-col min-w-0">
         <header className="flex items-center gap-3 border-b bg-white px-4 py-3 lg:hidden">
-          <button onClick={() => setMobileOpen(true)} aria-label="Abrir menu">
+          <button onClick={() => setMobileOpen(true)} aria-label="Open menu">
             <Menu className="h-5 w-5 text-zinc-600" />
           </button>
           <div className="flex items-center gap-2">

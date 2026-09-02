@@ -28,7 +28,7 @@ export function RevenueChart({ data }: { data: { month: string; revenue: number 
           <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#71717A' }} axisLine={false} tickLine={false} />
           <YAxis tick={{ fontSize: 12, fill: '#71717A' }} axisLine={false} tickLine={false} width={48} />
           <Tooltip
-            formatter={(value) => [`$${Number(value ?? 0).toFixed(2)}`, 'Receita']}
+            formatter={(value) => [`$${Number(value ?? 0).toFixed(2)}`, 'Revenue']}
             cursor={{ fill: 'rgba(99, 102, 241, 0.06)', radius: 4 }}
             contentStyle={{
               borderRadius: 10,

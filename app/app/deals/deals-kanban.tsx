@@ -30,7 +30,7 @@ export function DealsKanban({
     startTransition(() => {
       updateDealStage(dealId, newStage)
     })
-    toast.success(`Deal movido para ${stageLabel}`)
+    toast.success(`Deal moved to ${stageLabel}`)
   }
 
   return (
@@ -75,7 +75,7 @@ export function DealsKanban({
                   >
                     {stages.map((s) => (
                       <option key={s.key} value={s.key}>
-                        Mover para {s.label}
+                        Move to {s.label}
                       </option>
                     ))}
                   </select>

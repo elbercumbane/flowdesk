@@ -11,7 +11,7 @@ const password = process.env.DEMO_PASSWORD
 const connectionString = process.env.DATABASE_URL?.replace(/[?&]sslmode=[^&]+/g, '')
 
 if (!url || !service || !email || !password || !connectionString) {
-  console.error('Faltam DEMO_EMAIL, DEMO_PASSWORD ou chaves do Supabase.')
+  console.error('Missing DEMO_EMAIL, DEMO_PASSWORD, or Supabase keys.')
   process.exit(1)
 }
 
@@ -63,7 +63,7 @@ await db.query(
 const org = await db.query(`select id, name, slug from public.organizations where slug = 'flow1' limit 1`)
 if (!org.rowCount) {
   await db.end()
-  throw new Error('Organização flow1 não encontrada.')
+  throw new Error('Organization flow1 not found.')
 }
 
 await db.query(

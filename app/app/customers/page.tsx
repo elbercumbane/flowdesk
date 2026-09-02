@@ -20,7 +20,7 @@ export default async function CustomersPage() {
     .order('created_at', { ascending: false })
 
   if (error) {
-    return <div className="p-6 text-sm text-red-600">Erro a carregar clientes: {error.message}</div>
+    return <div className="p-6 text-sm text-red-600">Failed to load customers: {error.message}</div>
   }
 
   return (
@@ -41,9 +41,9 @@ export default async function CustomersPage() {
           <span className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-50 animate-bob">
             <Users className="h-8 w-8 text-zinc-300" />
           </span>
-          <p className="text-sm text-zinc-500">Ainda não tens nenhum cliente registado.</p>
+          <p className="text-sm text-zinc-500">You don&apos;t have any customers yet.</p>
           <Link href="/app/customers/new" className="mt-2 inline-block text-sm text-[#6366F1] hover:underline">
-            Criar o primeiro cliente
+            Create your first customer
           </Link>
         </div>
       ) : (
@@ -53,8 +53,8 @@ export default async function CustomersPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b bg-zinc-50 text-left text-xs text-zinc-500">
-                  <th className="px-4 py-3 font-medium">Nome</th>
-                  <th className="px-4 py-3 font-medium">Empresa</th>
+                  <th className="px-4 py-3 font-medium">Name</th>
+                  <th className="px-4 py-3 font-medium">Company</th>
                   <th className="px-4 py-3 font-medium">Email</th>
                   <th className="px-4 py-3 font-medium">Status</th>
                 </tr>

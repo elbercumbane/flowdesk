@@ -21,9 +21,9 @@ export default async function LoginPage({
             <span className="text-sm font-semibold tracking-tight text-zinc-900">FlowDesk</span>
           </div>
           <div>
-            <h1 className="text-xl font-semibold">Entrar no FlowDesk</h1>
+            <h1 className="text-xl font-semibold">Sign in to FlowDesk</h1>
             <p className="mt-1 text-sm text-zinc-500">
-              Usa a tua conta, ou cria uma organização nova.
+              Use your account, or create a new organization.
             </p>
           </div>
 
@@ -44,27 +44,27 @@ export default async function LoginPage({
           </div>
 
           <button type="submit" className="w-full rounded-md bg-[#6366F1] py-2 text-sm font-medium text-white hover:bg-[#4F46E5] active:scale-[0.97] transition hover:shadow-lg hover:shadow-indigo-500/25">
-            Entrar
+            Sign in
           </button>
 
           <p className="text-center text-sm text-zinc-500">
-            Não tens conta?{' '}
+            Don&apos;t have an account?{' '}
             <Link href={signupHref} className="text-[#6366F1] hover:underline">
-              Cria uma conta e a tua organização
+              Create an account and your organization
             </Link>
           </p>
         </form>
 
         <div className="fd-reveal rounded-xl border border-dashed border-indigo-200 bg-white p-5 text-center [animation-delay:90ms]">
-          <p className="text-sm font-medium text-zinc-800">Queres só ver um exemplo?</p>
+          <p className="text-sm font-medium text-zinc-800">Just want to see an example?</p>
           <p className="mt-1 text-sm text-zinc-500">
-            Abre a organização de testes com 15 clientes e dados já preenchidos.
+            Open the sample organization with 15 customers and pre-filled data.
           </p>
           <Link
             href="/demo"
             className="mt-3 inline-flex w-full items-center justify-center rounded-md border border-[#6366F1] px-3 py-2 text-sm font-medium text-[#4F46E5] hover:bg-[#EEF2FF]"
           >
-            Ver organização de exemplo
+            View sample organization
           </Link>
         </div>
       </div>

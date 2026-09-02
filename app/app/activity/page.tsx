@@ -9,12 +9,23 @@ const iconMap: Record<string, any> = {
   invoices: FileText,
 }
 
+function localizeActivity(description: string) {
+  return description
+    .replace(/^Cliente criado:\s*/, 'Customer created: ')
+    .replace(/^Deal criado:\s*/, 'Deal created: ')
+    .replace(/^Tarefa criada:\s*/, 'Task created: ')
+    .replace(/^Factura criada:\s*/, 'Invoice created: ')
+    .replace(/^Tarefa concluída:\s*/, 'Task completed: ')
+    .replace(/^Factura "/, 'Invoice "')
+    .replace(/" passou para /, '" moved to ')
+}
+
 function timeAgo(dateStr: string) {
   const diff = (Date.now() - new Date(dateStr).getTime()) / 1000
-  if (diff < 60) return 'agora mesmo'
-  if (diff < 3600) return `há ${Math.floor(diff / 60)} min`
-  if (diff < 86400) return `há ${Math.floor(diff / 3600)}h`
-  return `há ${Math.floor(diff / 86400)}d`
+  if (diff < 60) return 'just now'
+  if (diff < 3600) return `${Math.floor(diff / 60)} min ago`
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`
+  return `${Math.floor(diff / 86400)}d ago`
 }
 
 export default async function ActivityPage() {
@@ -29,7 +40,7 @@ export default async function ActivityPage() {
     .limit(50)
 
   if (error) {
-    return <div className="p-6 text-sm text-red-600">Erro a carregar actividade: {error.message}</div>
+    return <div className="p-6 text-sm text-red-600">Failed to load activity: {error.message}</div>
   }
 
   const actorIds = [...new Set((logs ?? []).map((l) => l.actor_id).filter(Boolean))] as string[]
@@ -48,7 +59,7 @@ export default async function ActivityPage() {
           <span className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-50 animate-bob">
             <Sparkles className="h-8 w-8 text-zinc-300" />
           </span>
-          <p className="text-sm text-zinc-500">Ainda não há actividade registada.</p>
+          <p className="text-sm text-zinc-500">No activity recorded yet.</p>
         </div>
       ) : (
         <div className="fd-stagger rounded-xl border bg-white overflow-hidden">
@@ -61,7 +72,7 @@ export default async function ActivityPage() {
                   <Icon className="h-3.5 w-3.5 text-[#4F46E5]" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm text-zinc-900">{log.description}</p>
+                  <p className="text-sm text-zinc-900">{localizeActivity(log.description)}</p>
                   <p className="text-xs text-zinc-400 mt-0.5">
                     {actorName ? `${actorName} · ` : ''}{timeAgo(log.created_at)}
                   </p>

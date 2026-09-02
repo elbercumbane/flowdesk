@@ -31,7 +31,7 @@ export function DealsView({ initialDeals }: { initialDeals: Deal[] }) {
               className={`flex items-center gap-1.5 rounded px-2.5 py-1.5 text-sm transition-colors active:scale-95 ${
                 view === 'kanban' ? 'bg-[#EEF2FF] text-[#4F46E5]' : 'text-zinc-500 hover:text-zinc-800'
               }`}
-              aria-label="Vista kanban"
+              aria-label="Kanban view"
             >
               <LayoutGrid className="h-4 w-4" />
               <span className="hidden sm:inline">Kanban</span>
@@ -41,10 +41,10 @@ export function DealsView({ initialDeals }: { initialDeals: Deal[] }) {
               className={`flex items-center gap-1.5 rounded px-2.5 py-1.5 text-sm transition-colors active:scale-95 ${
                 view === 'table' ? 'bg-[#EEF2FF] text-[#4F46E5]' : 'text-zinc-500 hover:text-zinc-800'
               }`}
-              aria-label="Vista tabela"
+              aria-label="Table view"
             >
               <List className="h-4 w-4" />
-              <span className="hidden sm:inline">Tabela</span>
+              <span className="hidden sm:inline">Table</span>
             </button>
           </div>
 
@@ -63,9 +63,9 @@ export function DealsView({ initialDeals }: { initialDeals: Deal[] }) {
           <span className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-50 animate-bob">
             <Briefcase className="h-8 w-8 text-zinc-300" />
           </span>
-          <p className="text-sm text-zinc-500">Ainda não tens nenhum deal registado.</p>
+          <p className="text-sm text-zinc-500">You don&apos;t have any deals yet.</p>
           <Link href="/app/deals/new" className="mt-2 inline-block text-sm text-[#6366F1] hover:underline">
-            Criar o primeiro deal
+            Create your first deal
           </Link>
         </div>
       ) : view === 'kanban' ? (

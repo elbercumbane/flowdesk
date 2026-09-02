@@ -13,7 +13,7 @@ export default async function DealsPage() {
     .order('created_at', { ascending: false })
 
   if (error) {
-    return <div className="p-6 text-sm text-red-600">Erro a carregar deals: {error.message}</div>
+    return <div className="p-6 text-sm text-red-600">Failed to load deals: {error.message}</div>
   }
 
   return <DealsView initialDeals={deals ?? []} />

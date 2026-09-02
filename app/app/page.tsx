@@ -36,7 +36,7 @@ export default async function AppDashboard() {
   const now = new Date()
   const months = Array.from({ length: 6 }, (_, i) => {
     const d = new Date(now.getFullYear(), now.getMonth() - (5 - i), 1)
-    return { key: `${d.getFullYear()}-${d.getMonth()}`, label: d.toLocaleDateString('pt-PT', { month: 'short' }) }
+    return { key: `${d.getFullYear()}-${d.getMonth()}`, label: d.toLocaleDateString('en-US', { month: 'short' }) }
   })
 
   const revenueByMonth = months.map(({ key, label }) => {
@@ -81,7 +81,7 @@ export default async function AppDashboard() {
       </div>
 
       <div className="fd-reveal rounded-xl border bg-white p-4 sm:p-6 [animation-delay:160ms]">
-        <p className="text-sm font-medium text-zinc-700 mb-4">Receita paga — últimos 6 meses</p>
+        <p className="text-sm font-medium text-zinc-700 mb-4">Paid revenue — last 6 months</p>
         <RevenueChart data={revenueByMonth} />
       </div>
     </div>

@@ -45,7 +45,7 @@ export function InvoiceForm({
   async function handleSubmit(formData: FormData) {
     setError(null)
     if (items.length === 0 || items.some((i) => !i.description.trim())) {
-      setError('Cada linha precisa de uma descrição.')
+      setError('Each line needs a description.')
       return
     }
 
@@ -64,7 +64,7 @@ export function InvoiceForm({
       setError(result.error)
       return
     }
-    toast.success('Factura criada')
+    toast.success('Invoice created')
     router.push('/app/invoices')
   }
 
@@ -76,7 +76,7 @@ export function InvoiceForm({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-1">
-          <label htmlFor="customerId" className="text-sm font-medium">Cliente *</label>
+          <label htmlFor="customerId" className="text-sm font-medium">Customer *</label>
           <select id="customerId" name="customerId" required className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition">
             {customers.map((c) => (
               <option key={c.id} value={c.id}>{c.name}</option>
@@ -84,9 +84,9 @@ export function InvoiceForm({
           </select>
         </div>
         <div className="space-y-1">
-          <label htmlFor="dealId" className="text-sm font-medium">Deal (opcional)</label>
+          <label htmlFor="dealId" className="text-sm font-medium">Deal (optional)</label>
           <select id="dealId" name="dealId" className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition">
-            <option value="">Nenhum</option>
+            <option value="">None</option>
             {deals.map((d) => (
               <option key={d.id} value={d.id}>{d.title}</option>
             ))}
@@ -96,24 +96,24 @@ export function InvoiceForm({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-1">
-          <label htmlFor="number" className="text-sm font-medium">Número *</label>
+          <label htmlFor="number" className="text-sm font-medium">Number *</label>
           <input id="number" name="number" required defaultValue={suggestedNumber} className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
         </div>
         <div className="space-y-1">
-          <label htmlFor="dueDate" className="text-sm font-medium">Data de vencimento *</label>
+          <label htmlFor="dueDate" className="text-sm font-medium">Due date *</label>
           <input id="dueDate" name="dueDate" type="date" required className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
         </div>
       </div>
 
       {/* Linhas de itens */}
       <div className="space-y-2">
-        <label className="text-sm font-medium">Itens *</label>
+        <label className="text-sm font-medium">Line items *</label>
 
         {/* Cabeçalho — só desktop */}
         <div className="hidden sm:grid grid-cols-[1fr_80px_100px_100px_32px] gap-2 px-1 text-xs text-zinc-500">
-          <span>Descrição</span>
-          <span>Qtd</span>
-          <span>Preço</span>
+          <span>Description</span>
+          <span>Qty</span>
+          <span>Price</span>
           <span>Subtotal</span>
           <span></span>
         </div>
@@ -124,7 +124,7 @@ export function InvoiceForm({
             className="grid grid-cols-2 sm:grid-cols-[1fr_80px_100px_100px_32px] gap-2 rounded-lg border p-2 sm:border-0 sm:p-0"
           >
             <input
-              placeholder="Descrição"
+              placeholder="Description"
               value={item.description}
               onChange={(e) => updateItem(index, 'description', e.target.value)}
               className="col-span-2 sm:col-span-1 rounded-md border px-2 py-1.5 text-sm"
@@ -152,7 +152,7 @@ export function InvoiceForm({
               type="button"
               onClick={() => removeItem(index)}
               className="flex items-center justify-center text-zinc-300 hover:text-red-600"
-              aria-label="Remover linha"
+              aria-label="Remove line"
             >
               <Trash2 className="h-4 w-4" />
             </button>
@@ -165,7 +165,7 @@ export function InvoiceForm({
           className="flex items-center gap-1.5 text-sm text-[#6366F1] hover:underline"
         >
           <Plus className="h-4 w-4" />
-          Adicionar linha
+          Add line
         </button>
       </div>
 
@@ -175,7 +175,7 @@ export function InvoiceForm({
       </div>
 
       <div className="space-y-1">
-        <label htmlFor="notes" className="text-sm font-medium">Notas</label>
+        <label htmlFor="notes" className="text-sm font-medium">Notes</label>
         <textarea id="notes" name="notes" rows={2} className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
       </div>
 
@@ -184,7 +184,7 @@ export function InvoiceForm({
         disabled={submitting}
         className="w-full sm:w-auto rounded-md bg-[#6366F1] px-4 py-2 text-sm font-medium text-white hover:bg-[#4F46E5] active:scale-[0.97] transition hover:shadow-lg hover:shadow-indigo-500/25 disabled:opacity-50"
       >
-        {submitting ? 'A criar…' : 'Criar factura'}
+        {submitting ? 'Creating…' : 'Create invoice'}
       </button>
     </form>
   )

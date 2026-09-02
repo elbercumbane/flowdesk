@@ -13,7 +13,7 @@ export default async function TasksPage() {
     .order('created_at', { ascending: false })
 
   if (error) {
-    return <div className="p-6 text-sm text-red-600">Erro a carregar tasks: {error.message}</div>
+    return <div className="p-6 text-sm text-red-600">Failed to load tasks: {error.message}</div>
   }
 
   return <TasksView initialTasks={tasks ?? []} />

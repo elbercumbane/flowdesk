@@ -16,7 +16,7 @@ export async function createDeal(formData: FormData) {
     .limit(1)
     .single()
 
-  if (!membership) redirect('/app/deals/new?error=Sem+organização')
+  if (!membership) redirect('/app/deals/new?error=No+organization+found')
 
   const { error } = await supabase.from('deals').insert({
     organization_id: membership.organization_id,
@@ -28,7 +28,7 @@ export async function createDeal(formData: FormData) {
   })
 
   if (error) redirect(`/app/deals/new?error=${encodeURIComponent(error.message)}`)
-  redirect(`/app/deals?toast=${encodeURIComponent('Deal criado')}`)
+  redirect(`/app/deals?toast=${encodeURIComponent('Deal created')}`)
 }
 
 export async function updateDealStage(dealId: string, newStage: string) {

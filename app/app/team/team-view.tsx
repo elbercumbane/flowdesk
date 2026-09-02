@@ -39,7 +39,7 @@ export function TeamView({
       return
     }
     setShowForm(false)
-    toast.success('Membro convidado')
+    toast.success('Member invited')
     router.refresh()
   }
 
@@ -73,7 +73,7 @@ export function TeamView({
               name="email"
               type="email"
               required
-              placeholder="email@exemplo.com"
+              placeholder="email@example.com"
               className="flex-1 rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition"
             />
             <select name="role" defaultValue="member" className="rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition">
@@ -81,20 +81,20 @@ export function TeamView({
               <option value="manager">Manager</option>
             </select>
             <button type="submit" className="rounded-md bg-[#6366F1] px-4 py-2 text-sm font-medium text-white hover:bg-[#4F46E5] active:scale-[0.97] transition hover:shadow-lg hover:shadow-indigo-500/25">
-              Convidar
+              Invite
             </button>
           </form>
         </div>
       )}
 
-      <p className="text-xs font-medium text-zinc-500 mb-2">Membros ({members.length})</p>
+      <p className="text-xs font-medium text-zinc-500 mb-2">Members ({members.length})</p>
       <div className="fd-stagger rounded-xl border bg-white overflow-hidden mb-6">
         {members.map((m) => (
           <div key={m.id} className="flex items-center justify-between gap-3 px-4 py-3 border-b last:border-0 transition-colors hover:bg-zinc-50/70">
             <div className="min-w-0">
               <p className="text-sm font-medium text-zinc-900 truncate">
-                {relField(m.profiles, 'full_name') || relField(m.profiles, 'email') || 'Sem nome'}
-                {m.user_id === currentUserId && <span className="text-zinc-400 font-normal"> (tu)</span>}
+                {relField(m.profiles, 'full_name') || relField(m.profiles, 'email') || 'No name'}
+                {m.user_id === currentUserId && <span className="text-zinc-400 font-normal"> (you)</span>}
               </p>
               <p className="text-xs text-zinc-500 truncate">{relField(m.profiles, 'email')}</p>
             </div>
@@ -107,7 +107,7 @@ export function TeamView({
 
       {invitations.length > 0 && (
         <>
-          <p className="text-xs font-medium text-zinc-500 mb-2">Convites pendentes ({invitations.length})</p>
+          <p className="text-xs font-medium text-zinc-500 mb-2">Pending invitations ({invitations.length})</p>
           <div className="fd-stagger rounded-xl border bg-white overflow-hidden">
             {invitations.map((inv) => (
               <div key={inv.id} className="flex items-center justify-between gap-3 px-4 py-3 border-b last:border-0 transition-colors hover:bg-zinc-50/70">
@@ -121,7 +121,7 @@ export function TeamView({
                     className="flex items-center gap-1 text-xs text-[#6366F1] hover:underline"
                   >
                     {copiedId === inv.id ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-                    {copiedId === inv.id ? 'Copiado' : 'Copiar link'}
+                    {copiedId === inv.id ? 'Copied' : 'Copy link'}
                   </button>
                   {canManage && (
                     <button
@@ -132,7 +132,7 @@ export function TeamView({
                         })
                       }
                       className="text-zinc-300 hover:text-red-600"
-                      aria-label="Revogar convite"
+                      aria-label="Revoke invitation"
                     >
                       <X className="h-4 w-4" />
                     </button>

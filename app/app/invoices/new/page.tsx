@@ -21,11 +21,11 @@ export default async function NewInvoicePage() {
     <div className="p-4 sm:p-6 max-w-2xl">
       <Link href="/app/invoices" className="flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 mb-4">
         <ArrowLeft className="h-4 w-4" />
-        Voltar a Invoices
+        Back to Invoices
       </Link>
 
       <div className="fd-reveal rounded-xl border bg-white p-4 sm:p-6">
-        <h1 className="text-lg font-semibold mb-4">Nova factura</h1>
+        <h1 className="text-lg font-semibold mb-4">New invoice</h1>
         <InvoiceForm
           customers={customers ?? []}
           deals={deals ?? []}

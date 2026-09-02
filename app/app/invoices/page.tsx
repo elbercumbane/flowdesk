@@ -28,7 +28,7 @@ export default async function InvoicesPage() {
     .order('created_at', { ascending: false })
 
   if (error) {
-    return <div className="p-6 text-sm text-red-600">Erro a carregar invoices: {error.message}</div>
+    return <div className="p-6 text-sm text-red-600">Failed to load invoices: {error.message}</div>
   }
 
   return (
@@ -49,9 +49,9 @@ export default async function InvoicesPage() {
           <span className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-50 animate-bob">
             <FileText className="h-8 w-8 text-zinc-300" />
           </span>
-          <p className="text-sm text-zinc-500">Ainda não tens nenhuma factura.</p>
+          <p className="text-sm text-zinc-500">You don&apos;t have any invoices yet.</p>
           <Link href="/app/invoices/new" className="mt-2 inline-block text-sm text-[#6366F1] hover:underline">
-            Criar a primeira factura
+            Create your first invoice
           </Link>
         </div>
       ) : (
@@ -61,9 +61,9 @@ export default async function InvoicesPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b bg-zinc-50 text-left text-xs text-zinc-500">
-                  <th className="px-4 py-3 font-medium">Número</th>
-                  <th className="px-4 py-3 font-medium">Cliente</th>
-                  <th className="px-4 py-3 font-medium">Vencimento</th>
+                  <th className="px-4 py-3 font-medium">Number</th>
+                  <th className="px-4 py-3 font-medium">Customer</th>
+                  <th className="px-4 py-3 font-medium">Due date</th>
                   <th className="px-4 py-3 font-medium">Total</th>
                   <th className="px-4 py-3 font-medium">Status</th>
                   <th className="px-4 py-3 font-medium"></th>
@@ -84,7 +84,7 @@ export default async function InvoicesPage() {
                       </td>
                       <td className="px-4 py-3 text-zinc-500">{relName(inv.customers, 'name')}</td>
                       <td className="px-4 py-3 text-zinc-500">
-                        {new Date(inv.due_date).toLocaleDateString('pt-PT')}
+                        {new Date(inv.due_date).toLocaleDateString('en-US')}
                       </td>
                       <td className="px-4 py-3 text-zinc-700 font-medium">${total.toFixed(2)}</td>
                       <td className="px-4 py-3">
@@ -92,7 +92,7 @@ export default async function InvoicesPage() {
                       </td>
                       <td className="px-4 py-3 text-right">
                         <Link href={`/app/invoices/${inv.id}`} className="text-xs text-[#6366F1] hover:underline">
-                          Ver
+                          View
                         </Link>
                       </td>
                     </tr>
@@ -124,7 +124,7 @@ export default async function InvoicesPage() {
                   <span className="text-sm text-zinc-500">{relName(inv.customers, 'name')}</span>
                   <div className="flex items-center justify-between mt-1">
                     <span className="text-xs text-zinc-400">
-                      Vence {new Date(inv.due_date).toLocaleDateString('pt-PT')}
+                      Due {new Date(inv.due_date).toLocaleDateString('en-US')}
                     </span>
                     <span className="text-sm font-semibold text-zinc-900">${total.toFixed(2)}</span>
                   </div>

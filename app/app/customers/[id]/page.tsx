@@ -42,7 +42,7 @@ export default async function CustomerDetailPage({
     <div className="p-4 sm:p-6 max-w-2xl">
       <Link href="/app/customers" className="group mb-4 flex items-center gap-1 text-sm text-zinc-500 transition-colors hover:text-zinc-900">
         <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
-        Voltar a Customers
+        Back to Customers
       </Link>
 
       <div className="fd-reveal rounded-xl border bg-white p-4 sm:p-6">
@@ -74,7 +74,7 @@ export default async function CustomerDetailPage({
 
         {customer.notes && (
           <div className="border-t pt-4 mt-4">
-            <p className="text-xs font-medium text-zinc-500 mb-1">Notas</p>
+            <p className="text-xs font-medium text-zinc-500 mb-1">Notes</p>
             <p className="text-sm text-zinc-700 whitespace-pre-wrap">{customer.notes}</p>
           </div>
         )}

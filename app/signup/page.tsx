@@ -19,7 +19,7 @@ export default async function SignupPage({
           <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-[#818CF8] to-[#6366F1] shadow-sm shadow-indigo-300/50" />
           <span className="text-sm font-semibold tracking-tight text-zinc-900">FlowDesk</span>
         </div>
-        <h1 className="text-xl font-semibold">Criar conta no FlowDesk</h1>
+        <h1 className="text-xl font-semibold">Create a FlowDesk account</h1>
 
         {error && (
           <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>
@@ -28,7 +28,7 @@ export default async function SignupPage({
         {returnTo && <input type="hidden" name="returnTo" value={returnTo} />}
 
         <div className="space-y-1">
-          <label htmlFor="fullName" className="text-sm font-medium">Nome completo</label>
+          <label htmlFor="fullName" className="text-sm font-medium">Full name</label>
           <input id="fullName" name="fullName" type="text" required className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
         </div>
 
@@ -43,16 +43,16 @@ export default async function SignupPage({
         </div>
 
         <button type="submit" className="w-full rounded-md bg-[#6366F1] py-2 text-sm font-medium text-white hover:bg-[#4F46E5] active:scale-[0.97] transition hover:shadow-lg hover:shadow-indigo-500/25">
-          Criar conta
+          Create account
         </button>
 
         <p className="text-center text-sm text-zinc-500">
-          Já tens conta? <Link href={loginHref} className="text-[#6366F1] hover:underline">Entra</Link>
+          Already have an account? <Link href={loginHref} className="text-[#6366F1] hover:underline">Sign in</Link>
         </p>
         <p className="text-center text-sm text-zinc-500">
-          Ou{' '}
+          Or{' '}
           <Link href="/demo" className="text-[#6366F1] hover:underline">
-            vê a organização de exemplo
+            view the sample organization
           </Link>
         </p>
       </form>

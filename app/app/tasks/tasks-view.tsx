@@ -43,7 +43,7 @@ export function TasksView({ initialTasks }: { initialTasks: Task[] }) {
     const newStatus = task.status === 'done' ? 'todo' : 'done'
     setTasks(tasks.map((t) => (t.id === task.id ? { ...t, status: newStatus } : t)))
     startTransition(() => updateTaskStatus(task.id, newStatus))
-    if (newStatus === 'done') toast.success('Tarefa concluída')
+    if (newStatus === 'done') toast.success('Task completed')
   }
 
   function changeStatus(taskId: string, status: string) {
@@ -80,7 +80,7 @@ export function TasksView({ initialTasks }: { initialTasks: Task[] }) {
                 : 'bg-white text-zinc-500 hover:border-indigo-200 hover:text-zinc-800'
             }`}
           >
-            {f === 'all' ? 'Todas' : statusLabels[f]}
+            {f === 'all' ? 'All' : statusLabels[f]}
           </button>
         ))}
       </div>
@@ -90,7 +90,7 @@ export function TasksView({ initialTasks }: { initialTasks: Task[] }) {
           <span className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-50 animate-bob">
             <CheckSquare className="h-8 w-8 text-zinc-300" />
           </span>
-          <p className="text-sm text-zinc-500">Nenhuma tarefa aqui.</p>
+          <p className="text-sm text-zinc-500">No tasks here.</p>
         </div>
       ) : (
         <div className="fd-stagger flex flex-col gap-2">
@@ -121,7 +121,7 @@ export function TasksView({ initialTasks }: { initialTasks: Task[] }) {
                     {customerNameStr && <span>· {customerNameStr}</span>}
                     {task.due_date && (
                       <span className={isOverdue ? 'text-red-600 font-medium' : ''}>
-                        · {new Date(task.due_date).toLocaleDateString('pt-PT')}
+                        · {new Date(task.due_date).toLocaleDateString('en-US')}
                       </span>
                     )}
                   </div>
@@ -140,7 +140,7 @@ export function TasksView({ initialTasks }: { initialTasks: Task[] }) {
                 <button
                   onClick={() => remove(task.id)}
                   className="shrink-0 text-zinc-300 hover:text-red-600"
-                  aria-label="Apagar tarefa"
+                  aria-label="Delete task"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>

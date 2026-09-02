@@ -33,7 +33,7 @@ export function InvoiceStatusSelect({
       onChange={(e) => {
         const next = e.target.value
         startTransition(() => updateInvoiceStatus(invoiceId, next))
-        toast.success(`Factura marcada como ${statusLabels[next] ?? next}`)
+        toast.success(`Invoice marked as ${statusLabels[next] ?? next}`)
       }}
       className={`rounded-full px-2.5 py-1 text-xs font-medium border-0 ${statusStyles[currentStatus]}`}
     >

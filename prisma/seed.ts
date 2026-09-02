@@ -26,8 +26,8 @@ function monthsAgo(n: number) {
 
 async function main() {
   const org = await prisma.organization.findFirst()
-  if (!org) throw new Error('Nenhuma organização encontrada — cria uma via onboarding primeiro.')
-  console.log(`A semear dados para a organização: ${org.name} (${org.id})`)
+  if (!org) throw new Error('No organization found — create one via onboarding first.')
+  console.log(`Seeding data for organization: ${org.name} (${org.id})`)
 
   // limpa dados de negócio existentes desta organização (mantém org, memberships, profiles)
   await prisma.invoiceItem.deleteMany({ where: { invoice: { organizationId: org.id } } })
@@ -36,7 +36,7 @@ async function main() {
   await prisma.deal.deleteMany({ where: { organizationId: org.id } })
   await prisma.customer.deleteMany({ where: { organizationId: org.id } })
   await prisma.activityLog.deleteMany({ where: { organizationId: org.id } })
-  console.log('Dados antigos removidos.')
+  console.log('Previous business data removed.')
 
   // ---------- CUSTOMERS ----------
   const customersData = [
@@ -231,9 +231,9 @@ async function main() {
       },
     })
   }
-  console.log(`${invoicesData.length} facturas criadas.`)
+  console.log(`${invoicesData.length} invoices created.`)
 
-  console.log('Seed completo.')
+  console.log('Seed complete.')
 }
 
 main()

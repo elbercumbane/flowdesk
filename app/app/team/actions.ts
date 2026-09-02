@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache'
 export async function inviteMember(formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return { error: 'Não autenticado' }
+  if (!user) return { error: 'Not authenticated' }
 
   const { data: membership } = await supabase
     .from('memberships')
@@ -16,7 +16,7 @@ export async function inviteMember(formData: FormData) {
     .single()
 
   if (!membership || !['owner', 'manager'].includes(membership.role)) {
-    return { error: 'Sem permissão para convidar' }
+    return { error: 'You do not have permission to invite' }
   }
 
   const email = formData.get('email') as string

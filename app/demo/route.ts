@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
 
   if (!email || !password) {
     const url = new URL('/login', origin)
-    url.searchParams.set('error', 'A demo ainda não está configurada.')
+    url.searchParams.set('error', 'The demo is not configured yet.')
     return NextResponse.redirect(url)
   }
 
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
   const { error } = await supabase.auth.signInWithPassword({ email, password })
   if (error) {
     const url = new URL('/login', origin)
-    url.searchParams.set('error', 'Não foi possível abrir a organização de exemplo.')
+    url.searchParams.set('error', 'Could not open the sample organization.')
     return NextResponse.redirect(url)
   }
 

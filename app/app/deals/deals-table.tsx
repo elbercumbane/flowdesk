@@ -17,9 +17,9 @@ export function DealsTable({ deals }: { deals: Deal[] }) {
           <thead>
             <tr className="border-b bg-zinc-50 text-left text-xs text-zinc-500">
               <th className="px-4 py-3 font-medium">Deal</th>
-              <th className="px-4 py-3 font-medium">Cliente</th>
-              <th className="px-4 py-3 font-medium">Valor</th>
-              <th className="px-4 py-3 font-medium">Estágio</th>
+              <th className="px-4 py-3 font-medium">Customer</th>
+              <th className="px-4 py-3 font-medium">Value</th>
+              <th className="px-4 py-3 font-medium">Stage</th>
             </tr>
           </thead>
           <tbody className="fd-stagger">

@@ -16,7 +16,7 @@ export async function createTask(formData: FormData) {
     .limit(1)
     .single()
 
-  if (!membership) redirect('/app/tasks/new?error=Sem+organização')
+  if (!membership) redirect('/app/tasks/new?error=No+organization+found')
 
   const dealId = formData.get('dealId') as string
   const customerId = formData.get('customerId') as string
@@ -32,7 +32,7 @@ export async function createTask(formData: FormData) {
   })
 
   if (error) redirect(`/app/tasks/new?error=${encodeURIComponent(error.message)}`)
-  redirect(`/app/tasks?toast=${encodeURIComponent('Tarefa criada')}`)
+  redirect(`/app/tasks?toast=${encodeURIComponent('Task created')}`)
 }
 
 export async function updateTaskStatus(taskId: string, status: string) {
