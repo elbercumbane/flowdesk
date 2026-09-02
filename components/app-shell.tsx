@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { AppSidebarNav } from './app-sidebar-nav'
 import { DemoBanner } from './demo-banner'
+import { DecorBackground } from './decor-background'
 import { logout } from '@/app/login/logout'
 
 export function AppShell({
@@ -89,7 +90,13 @@ export function AppShell({
 
         {isDemo && <DemoBanner orgName={orgName || 'Demo'} />}
 
-        <main className="flex-1 overflow-y-auto">{children}</main>
+        <main className="relative flex-1 overflow-y-auto">
+          <DecorBackground
+            tone="light"
+            className="sticky top-0 -mb-[100dvh] h-[100dvh] w-full opacity-70"
+          />
+          <div className="relative z-10">{children}</div>
+        </main>
       </div>
     </div>
   )
