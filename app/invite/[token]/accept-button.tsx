@@ -29,7 +29,7 @@ export function AcceptInviteButton({ token }: { token: string }) {
       <button
         onClick={accept}
         disabled={loading}
-        className="w-full rounded-md bg-[#6366F1] py-2 text-sm font-medium text-white hover:bg-[#4F46E5] disabled:opacity-50"
+        className="w-full rounded-md bg-[#6366F1] py-2 text-sm font-medium text-white hover:bg-[#4F46E5] active:scale-[0.97] transition hover:shadow-lg hover:shadow-indigo-500/25 disabled:opacity-50"
       >
         {loading ? 'A aceitar…' : 'Aceitar convite'}
       </button>

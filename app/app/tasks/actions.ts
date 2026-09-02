@@ -32,7 +32,7 @@ export async function createTask(formData: FormData) {
   })
 
   if (error) redirect(`/app/tasks/new?error=${encodeURIComponent(error.message)}`)
-  redirect('/app/tasks')
+  redirect(`/app/tasks?toast=${encodeURIComponent('Tarefa criada')}`)
 }
 
 export async function updateTaskStatus(taskId: string, status: string) {

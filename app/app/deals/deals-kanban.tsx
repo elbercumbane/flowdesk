@@ -1,6 +1,7 @@
 'use client'
 
 import { useTransition } from 'react'
+import { toast } from 'sonner'
 import { Deal, customerName, formatMoney } from './deals-view'
 import { updateDealStage } from './actions'
 
@@ -22,14 +23,18 @@ export function DealsKanban({
   const [, startTransition] = useTransition()
 
   function moveDeal(dealId: string, newStage: string) {
+    const current = deals.find((d) => d.id === dealId)
+    if (current && current.stage === newStage) return
     setDeals(deals.map((d) => (d.id === dealId ? { ...d, stage: newStage } : d)))
+    const stageLabel = stages.find((s) => s.key === newStage)?.label ?? newStage
     startTransition(() => {
       updateDealStage(dealId, newStage)
     })
+    toast.success(`Deal movido para ${stageLabel}`)
   }
 
   return (
-    <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
+    <div className="fd-reveal flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
       {stages.map((stage) => {
         const stageDeals = deals.filter((d) => d.stage === stage.key)
         return (
@@ -45,17 +50,19 @@ export function DealsKanban({
           >
             <div className="flex items-center justify-between px-1 mb-2">
               <span className="text-sm font-medium text-zinc-700">{stage.label}</span>
-              <span className="text-xs text-zinc-400">{stageDeals.length}</span>
+              <span className="min-w-5 rounded-full bg-zinc-100 px-1.5 text-center text-xs font-medium text-zinc-500">
+                {stageDeals.length}
+              </span>
             </div>
 
-            <div className="flex flex-col gap-2 min-h-[80px] rounded-lg bg-zinc-100/60 p-2">
+            <div className="fd-stagger flex flex-col gap-2 min-h-[80px] rounded-lg bg-zinc-100/60 p-2 transition-colors">
               {stageDeals.map((d) => (
                 <div
                   key={d.id}
                   data-deal-id={d.id}
                   draggable
                   onDragStart={(e) => e.dataTransfer.setData('dealId', d.id)}
-                  className="rounded-lg border bg-white p-3 cursor-grab active:cursor-grabbing"
+                  className="rounded-lg border bg-white p-3 cursor-grab will-change-transform transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-indigo-200 active:cursor-grabbing active:scale-[1.03] active:shadow-lg active:rotate-1"
                 >
                   <p className="text-sm font-medium text-zinc-900">{d.title}</p>
                   <p className="text-xs text-zinc-500 mt-0.5">{customerName(d.customers)}</p>

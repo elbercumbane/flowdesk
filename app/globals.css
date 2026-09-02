@@ -125,5 +125,126 @@
     }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
     }
+  /* Campos de formulário animam suavemente foco + borda */
+  input,
+  select,
+  textarea {
+    transition: box-shadow 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+    }
+  /* Anel de foco indigo consistente em qualquer campo (fallback para os que
+     não têm classes focus:* explícitas — ex. linhas de itens da factura) */
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: none;
+    border-color: #818cf8;
+    box-shadow: 0 0 0 2px #c7d2fe;
+    }
+  ::selection {
+    background-color: color-mix(in oklch, #6366f1 22%, transparent);
+    }
+  select {
+    cursor: pointer;
+    }
+  /* Scrollbar fina e discreta */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #d4d4d8 transparent;
+    }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    }
+  ::-webkit-scrollbar-thumb {
+    background: #d4d4d8;
+    border: 3px solid transparent;
+    border-radius: 9999px;
+    background-clip: content-box;
+    }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a1a1aa;
+    background-clip: content-box;
+    }
+}
+
+@theme {
+  --animate-float-slow: float-slow 12s ease-in-out infinite;
+  --animate-float-slower: float-slower 16s ease-in-out infinite;
+  --animate-fade-up: fd-fade-up 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-bob: fd-bob 4s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, 40px); }
+}
+
+@keyframes float-slower {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-40px, 20px); }
+}
+
+@keyframes fd-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes fd-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes fd-fade-only {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@layer utilities {
+  /* Entrada de um único elemento */
+  .fd-reveal {
+    animation: var(--animate-fade-up);
+  }
+
+  /* Transição de página: só opacidade, para não somar translate com o
+     stagger das listas internas */
+  .fd-page {
+    animation: fd-fade-only 0.28s ease-out both;
+  }
+
+  /* Entrada encadeada dos filhos diretos (listas, grelhas, linhas de tabela) */
+  .fd-stagger > * {
+    animation: var(--animate-fade-up);
+  }
+  .fd-stagger > *:nth-child(1) { animation-delay: 0ms; }
+  .fd-stagger > *:nth-child(2) { animation-delay: 35ms; }
+  .fd-stagger > *:nth-child(3) { animation-delay: 70ms; }
+  .fd-stagger > *:nth-child(4) { animation-delay: 105ms; }
+  .fd-stagger > *:nth-child(5) { animation-delay: 140ms; }
+  .fd-stagger > *:nth-child(6) { animation-delay: 175ms; }
+  .fd-stagger > *:nth-child(7) { animation-delay: 210ms; }
+  .fd-stagger > *:nth-child(8) { animation-delay: 245ms; }
+  .fd-stagger > *:nth-child(9) { animation-delay: 280ms; }
+  .fd-stagger > *:nth-child(n + 10) { animation-delay: 310ms; }
+}
+
+/* Acessibilidade: respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-float-slow,
+  .animate-float-slower,
+  .animate-bob {
+    animation: none !important;
+  }
 }

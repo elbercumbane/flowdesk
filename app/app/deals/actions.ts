@@ -28,7 +28,7 @@ export async function createDeal(formData: FormData) {
   })
 
   if (error) redirect(`/app/deals/new?error=${encodeURIComponent(error.message)}`)
-  redirect('/app/deals')
+  redirect(`/app/deals?toast=${encodeURIComponent('Deal criado')}`)
 }
 
 export async function updateDealStage(dealId: string, newStage: string) {

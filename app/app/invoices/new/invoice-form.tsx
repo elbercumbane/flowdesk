@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import { Plus, Trash2 } from 'lucide-react'
 import { createInvoiceWithItems } from '../actions'
 
@@ -63,6 +64,7 @@ export function InvoiceForm({
       setError(result.error)
       return
     }
+    toast.success('Factura criada')
     router.push('/app/invoices')
   }
 
@@ -75,7 +77,7 @@ export function InvoiceForm({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-1">
           <label htmlFor="customerId" className="text-sm font-medium">Cliente *</label>
-          <select id="customerId" name="customerId" required className="w-full rounded-md border px-3 py-2 text-sm">
+          <select id="customerId" name="customerId" required className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition">
             {customers.map((c) => (
               <option key={c.id} value={c.id}>{c.name}</option>
             ))}
@@ -83,7 +85,7 @@ export function InvoiceForm({
         </div>
         <div className="space-y-1">
           <label htmlFor="dealId" className="text-sm font-medium">Deal (opcional)</label>
-          <select id="dealId" name="dealId" className="w-full rounded-md border px-3 py-2 text-sm">
+          <select id="dealId" name="dealId" className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition">
             <option value="">Nenhum</option>
             {deals.map((d) => (
               <option key={d.id} value={d.id}>{d.title}</option>
@@ -95,11 +97,11 @@ export function InvoiceForm({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-1">
           <label htmlFor="number" className="text-sm font-medium">Número *</label>
-          <input id="number" name="number" required defaultValue={suggestedNumber} className="w-full rounded-md border px-3 py-2 text-sm" />
+          <input id="number" name="number" required defaultValue={suggestedNumber} className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
         </div>
         <div className="space-y-1">
           <label htmlFor="dueDate" className="text-sm font-medium">Data de vencimento *</label>
-          <input id="dueDate" name="dueDate" type="date" required className="w-full rounded-md border px-3 py-2 text-sm" />
+          <input id="dueDate" name="dueDate" type="date" required className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
         </div>
       </div>
 
@@ -174,13 +176,13 @@ export function InvoiceForm({
 
       <div className="space-y-1">
         <label htmlFor="notes" className="text-sm font-medium">Notas</label>
-        <textarea id="notes" name="notes" rows={2} className="w-full rounded-md border px-3 py-2 text-sm" />
+        <textarea id="notes" name="notes" rows={2} className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
       </div>
 
       <button
         type="submit"
         disabled={submitting}
-        className="w-full sm:w-auto rounded-md bg-[#6366F1] px-4 py-2 text-sm font-medium text-white hover:bg-[#4F46E5] disabled:opacity-50"
+        className="w-full sm:w-auto rounded-md bg-[#6366F1] px-4 py-2 text-sm font-medium text-white hover:bg-[#4F46E5] active:scale-[0.97] transition hover:shadow-lg hover:shadow-indigo-500/25 disabled:opacity-50"
       >
         {submitting ? 'A criar…' : 'Criar factura'}
       </button>

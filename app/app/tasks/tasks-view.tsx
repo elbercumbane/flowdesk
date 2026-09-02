@@ -2,7 +2,8 @@
 
 import { useState, useTransition, useMemo } from 'react'
 import Link from 'next/link'
-import { Plus, Trash2 } from 'lucide-react'
+import { toast } from 'sonner'
+import { Plus, Trash2, CheckSquare } from 'lucide-react'
 import { updateTaskStatus, deleteTask } from './actions'
 
 type Task = {
@@ -42,6 +43,7 @@ export function TasksView({ initialTasks }: { initialTasks: Task[] }) {
     const newStatus = task.status === 'done' ? 'todo' : 'done'
     setTasks(tasks.map((t) => (t.id === task.id ? { ...t, status: newStatus } : t)))
     startTransition(() => updateTaskStatus(task.id, newStatus))
+    if (newStatus === 'done') toast.success('Tarefa concluída')
   }
 
   function changeStatus(taskId: string, status: string) {
@@ -60,7 +62,7 @@ export function TasksView({ initialTasks }: { initialTasks: Task[] }) {
         <h1 className="text-lg sm:text-xl font-semibold text-zinc-900">Tasks</h1>
         <Link
           href="/app/tasks/new"
-          className="flex items-center gap-1.5 rounded-md bg-[#6366F1] px-3 py-2 text-sm font-medium text-white hover:bg-[#4F46E5]"
+          className="flex items-center gap-1.5 rounded-md bg-[#6366F1] px-3 py-2 text-sm font-medium text-white hover:bg-[#4F46E5] active:scale-[0.97] transition hover:shadow-lg hover:shadow-indigo-500/25"
         >
           <Plus className="h-4 w-4" />
           <span className="hidden sm:inline">New Task</span>
@@ -72,8 +74,10 @@ export function TasksView({ initialTasks }: { initialTasks: Task[] }) {
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium border ${
-              filter === f ? 'bg-[#EEF2FF] text-[#4F46E5] border-[#EEF2FF]' : 'text-zinc-500 bg-white'
+            className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-200 active:scale-95 ${
+              filter === f
+                ? 'border-[#EEF2FF] bg-[#EEF2FF] text-[#4F46E5]'
+                : 'bg-white text-zinc-500 hover:border-indigo-200 hover:text-zinc-800'
             }`}
           >
             {f === 'all' ? 'Todas' : statusLabels[f]}
@@ -82,11 +86,14 @@ export function TasksView({ initialTasks }: { initialTasks: Task[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-xl border border-dashed bg-white p-10 text-center">
+        <div className="fd-reveal rounded-xl border border-dashed bg-white p-10 text-center">
+          <span className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-50 animate-bob">
+            <CheckSquare className="h-8 w-8 text-zinc-300" />
+          </span>
           <p className="text-sm text-zinc-500">Nenhuma tarefa aqui.</p>
         </div>
       ) : (
-        <div className="flex flex-col gap-2">
+        <div className="fd-stagger flex flex-col gap-2">
           {filtered.map((task) => {
             const dealTitle = relName(task.deals, 'title')
             const customerNameStr = relName(task.customers, 'name')
@@ -96,7 +103,7 @@ export function TasksView({ initialTasks }: { initialTasks: Task[] }) {
             return (
               <div
                 key={task.id}
-                className="flex items-center gap-3 rounded-xl border bg-white p-3 sm:p-4"
+                className="flex items-center gap-3 rounded-xl border bg-white p-3 sm:p-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-indigo-200"
               >
                 <input
                   type="checkbox"

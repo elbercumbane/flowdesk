@@ -44,17 +44,20 @@ export default async function ActivityPage() {
       <h1 className="text-lg sm:text-xl font-semibold text-zinc-900 mb-4 sm:mb-6">Activity Log</h1>
 
       {!logs || logs.length === 0 ? (
-        <div className="rounded-xl border border-dashed bg-white p-10 text-center">
+        <div className="fd-reveal rounded-xl border border-dashed bg-white p-10 text-center">
+          <span className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-50 animate-bob">
+            <Sparkles className="h-8 w-8 text-zinc-300" />
+          </span>
           <p className="text-sm text-zinc-500">Ainda não há actividade registada.</p>
         </div>
       ) : (
-        <div className="rounded-xl border bg-white overflow-hidden">
+        <div className="fd-stagger rounded-xl border bg-white overflow-hidden">
           {logs.map((log) => {
             const Icon = iconMap[log.entity_type] ?? Sparkles
             const actorName = log.actor_id ? profileMap.get(log.actor_id) : null
             return (
-              <div key={log.id} className="flex items-start gap-3 px-4 py-3 border-b last:border-0">
-                <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EEF2FF]">
+              <div key={log.id} className="group flex items-start gap-3 px-4 py-3 border-b last:border-0 transition-colors hover:bg-zinc-50/70">
+                <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EEF2FF] transition-transform duration-200 group-hover:scale-110">
                   <Icon className="h-3.5 w-3.5 text-[#4F46E5]" />
                 </div>
                 <div className="min-w-0 flex-1">

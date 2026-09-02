@@ -3,12 +3,18 @@
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { AppSidebarNav } from './app-sidebar-nav'
+import { DemoBanner } from './demo-banner'
+import { logout } from '@/app/login/logout'
 
 export function AppShell({
   userEmail,
+  isDemo,
+  orgName,
   children,
 }: {
   userEmail: string
+  isDemo?: boolean
+  orgName?: string
   children: React.ReactNode
 }) {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -16,12 +22,31 @@ export function AppShell({
   const renderSidebar = () => (
     <>
       <div className="flex items-center gap-2 px-2 py-3">
-        <div className="h-5 w-5 rounded-md bg-[#6366F1]" />
+        <div className="h-5 w-5 rounded-md bg-gradient-to-br from-[#818CF8] to-[#6366F1] shadow-sm shadow-indigo-300/50" />
         <span className="text-sm font-medium">FlowDesk</span>
       </div>
       <AppSidebarNav onNavigate={() => setMobileOpen(false)} />
-      <div className="mt-auto border-t pt-3 px-2 text-xs text-zinc-500 truncate">
-        {userEmail}
+      <div className="mt-auto border-t pt-3 px-2 space-y-2">
+        <p className="text-xs text-zinc-500 truncate">{userEmail}</p>
+        {isDemo ? (
+          <div className="flex flex-col gap-1">
+            <a href="/demo/exit?to=login" className="text-xs font-medium text-[#4F46E5] hover:underline">
+              Entrar na tua conta
+            </a>
+            <a href="/demo/exit?to=signup" className="text-xs font-medium text-[#4F46E5] hover:underline">
+              Criar conta nova
+            </a>
+            <a href="/demo/exit?to=org" className="text-xs font-medium text-[#4F46E5] hover:underline">
+              Criar organização
+            </a>
+          </div>
+        ) : (
+          <form action={logout}>
+            <button type="submit" className="text-xs font-medium text-zinc-600 hover:text-zinc-900">
+              Sair
+            </button>
+          </form>
+        )}
       </div>
     </>
   )
@@ -57,10 +82,12 @@ export function AppShell({
             <Menu className="h-5 w-5 text-zinc-600" />
           </button>
           <div className="flex items-center gap-2">
-            <div className="h-4 w-4 rounded bg-[#6366F1]" />
+            <div className="h-4 w-4 rounded bg-gradient-to-br from-[#818CF8] to-[#6366F1]" />
             <span className="text-sm font-medium">FlowDesk</span>
           </div>
         </header>
+
+        {isDemo && <DemoBanner orgName={orgName || 'Demo'} />}
 
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>

@@ -22,9 +22,9 @@ export function DealsTable({ deals }: { deals: Deal[] }) {
               <th className="px-4 py-3 font-medium">Estágio</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="fd-stagger">
             {deals.map((d) => (
-              <tr key={d.id} className="border-b last:border-0 hover:bg-zinc-50">
+              <tr key={d.id} className="border-b last:border-0 hover:bg-zinc-50 transition-colors">
                 <td className="px-4 py-3 font-medium text-zinc-900">{d.title}</td>
                 <td className="px-4 py-3 text-zinc-500">{customerName(d.customers)}</td>
                 <td className="px-4 py-3 text-zinc-700">{formatMoney(d.value)}</td>
@@ -39,9 +39,9 @@ export function DealsTable({ deals }: { deals: Deal[] }) {
         </table>
       </div>
 
-      <div className="md:hidden flex flex-col gap-2">
+      <div className="fd-stagger md:hidden flex flex-col gap-2">
         {deals.map((d) => (
-          <div key={d.id} className="rounded-xl border bg-white p-4 flex flex-col gap-1">
+          <div key={d.id} className="rounded-xl border bg-white p-4 flex flex-col gap-1 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-indigo-200">
             <div className="flex items-center justify-between">
               <span className="font-medium text-zinc-900">{d.title}</span>
               <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${stageStyles[d.stage]}`}>

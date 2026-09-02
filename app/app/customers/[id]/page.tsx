@@ -40,12 +40,12 @@ export default async function CustomerDetailPage({
 
   return (
     <div className="p-4 sm:p-6 max-w-2xl">
-      <Link href="/app/customers" className="flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 mb-4">
-        <ArrowLeft className="h-4 w-4" />
+      <Link href="/app/customers" className="group mb-4 flex items-center gap-1 text-sm text-zinc-500 transition-colors hover:text-zinc-900">
+        <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
         Voltar a Customers
       </Link>
 
-      <div className="rounded-xl border bg-white p-4 sm:p-6">
+      <div className="fd-reveal rounded-xl border bg-white p-4 sm:p-6">
         <div className="flex items-start justify-between gap-3 mb-4">
           <div>
             <h1 className="text-lg font-semibold text-zinc-900">{customer.name}</h1>

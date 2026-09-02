@@ -33,12 +33,12 @@ export default async function InvoiceDetailPage({
 
   return (
     <div className="p-4 sm:p-6 max-w-2xl">
-      <Link href="/app/invoices" className="flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 mb-4">
-        <ArrowLeft className="h-4 w-4" />
+      <Link href="/app/invoices" className="group mb-4 flex items-center gap-1 text-sm text-zinc-500 transition-colors hover:text-zinc-900">
+        <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
         Voltar a Invoices
       </Link>
 
-      <div className="rounded-xl border bg-white p-4 sm:p-6">
+      <div className="fd-reveal rounded-xl border bg-white p-4 sm:p-6">
         <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
           <div>
             <h1 className="text-lg font-semibold text-zinc-900">{invoice.number}</h1>
@@ -52,9 +52,9 @@ export default async function InvoiceDetailPage({
             <a
               href={`/api/invoices/${invoice.id}/pdf`}
               target="_blank"
-              className="flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"
+              className="group flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-indigo-200 hover:bg-zinc-50"
             >
-              <Download className="h-4 w-4" />
+              <Download className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
               <span className="hidden sm:inline">PDF</span>
             </a>
           </div>
@@ -82,7 +82,7 @@ export default async function InvoiceDetailPage({
                 <th className="pb-2 font-medium text-right">Subtotal</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="fd-stagger">
               {items.map((it) => (
                 <tr key={it.id} className="border-t">
                   <td className="py-2 text-zinc-900">{it.description}</td>

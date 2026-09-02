@@ -1,5 +1,6 @@
 import { signup } from '../login/actions'
 import Link from 'next/link'
+import { AuthBackground } from '@/components/auth-background'
 
 export default async function SignupPage({
   searchParams,
@@ -12,8 +13,12 @@ export default async function SignupPage({
     : '/login'
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#FAFAFA]">
-      <form action={signup} className="w-full max-w-sm space-y-4 rounded-xl border bg-white p-8 shadow-sm">
+    <AuthBackground>
+      <form action={signup} className="fd-reveal w-full max-w-sm space-y-4 rounded-xl border bg-white p-8 shadow-lg shadow-indigo-100/50">
+        <div className="flex items-center gap-2">
+          <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-[#818CF8] to-[#6366F1] shadow-sm shadow-indigo-300/50" />
+          <span className="text-sm font-semibold tracking-tight text-zinc-900">FlowDesk</span>
+        </div>
         <h1 className="text-xl font-semibold">Criar conta no FlowDesk</h1>
 
         {error && (
@@ -24,27 +29,33 @@ export default async function SignupPage({
 
         <div className="space-y-1">
           <label htmlFor="fullName" className="text-sm font-medium">Nome completo</label>
-          <input id="fullName" name="fullName" type="text" required className="w-full rounded-md border px-3 py-2 text-sm" />
+          <input id="fullName" name="fullName" type="text" required className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
         </div>
 
         <div className="space-y-1">
           <label htmlFor="email" className="text-sm font-medium">Email</label>
-          <input id="email" name="email" type="email" required className="w-full rounded-md border px-3 py-2 text-sm" />
+          <input id="email" name="email" type="email" required className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
         </div>
 
         <div className="space-y-1">
           <label htmlFor="password" className="text-sm font-medium">Password</label>
-          <input id="password" name="password" type="password" required minLength={6} className="w-full rounded-md border px-3 py-2 text-sm" />
+          <input id="password" name="password" type="password" required minLength={6} className="w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition" />
         </div>
 
-        <button type="submit" className="w-full rounded-md bg-[#6366F1] py-2 text-sm font-medium text-white hover:bg-[#4F46E5]">
+        <button type="submit" className="w-full rounded-md bg-[#6366F1] py-2 text-sm font-medium text-white hover:bg-[#4F46E5] active:scale-[0.97] transition hover:shadow-lg hover:shadow-indigo-500/25">
           Criar conta
         </button>
 
         <p className="text-center text-sm text-zinc-500">
           Já tens conta? <Link href={loginHref} className="text-[#6366F1] hover:underline">Entra</Link>
         </p>
+        <p className="text-center text-sm text-zinc-500">
+          Ou{' '}
+          <Link href="/demo" className="text-[#6366F1] hover:underline">
+            vê a organização de exemplo
+          </Link>
+        </p>
       </form>
-    </div>
+    </AuthBackground>
   )
 }

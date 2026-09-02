@@ -33,5 +33,5 @@ export async function createCustomer(formData: FormData) {
     redirect(`/app/customers/new?error=${encodeURIComponent(error.message)}`)
   }
 
-  redirect('/app/customers')
+  redirect(`/app/customers?toast=${encodeURIComponent('Cliente criado')}`)
 }

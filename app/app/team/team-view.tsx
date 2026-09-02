@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import { UserPlus, X, Copy, Check } from 'lucide-react'
 import { inviteMember, revokeInvitation } from './actions'
 
@@ -38,6 +39,7 @@ export function TeamView({
       return
     }
     setShowForm(false)
+    toast.success('Membro convidado')
     router.refresh()
   }
 
@@ -55,7 +57,7 @@ export function TeamView({
         {canManage && (
           <button
             onClick={() => setShowForm((s) => !s)}
-            className="flex items-center gap-1.5 rounded-md bg-[#6366F1] px-3 py-2 text-sm font-medium text-white hover:bg-[#4F46E5]"
+            className="flex items-center gap-1.5 rounded-md bg-[#6366F1] px-3 py-2 text-sm font-medium text-white hover:bg-[#4F46E5] active:scale-[0.97] transition hover:shadow-lg hover:shadow-indigo-500/25"
           >
             <UserPlus className="h-4 w-4" />
             <span className="hidden sm:inline">Invite</span>
@@ -64,7 +66,7 @@ export function TeamView({
       </div>
 
       {showForm && (
-        <div className="rounded-xl border bg-white p-4 mb-4">
+        <div className="fd-reveal rounded-xl border bg-white p-4 mb-4">
           {error && <p className="mb-3 rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
           <form action={handleInvite} className="flex flex-col sm:flex-row gap-3">
             <input
@@ -72,13 +74,13 @@ export function TeamView({
               type="email"
               required
               placeholder="email@exemplo.com"
-              className="flex-1 rounded-md border px-3 py-2 text-sm"
+              className="flex-1 rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition"
             />
-            <select name="role" defaultValue="member" className="rounded-md border px-3 py-2 text-sm">
+            <select name="role" defaultValue="member" className="rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition">
               <option value="member">Member</option>
               <option value="manager">Manager</option>
             </select>
-            <button type="submit" className="rounded-md bg-[#6366F1] px-4 py-2 text-sm font-medium text-white hover:bg-[#4F46E5]">
+            <button type="submit" className="rounded-md bg-[#6366F1] px-4 py-2 text-sm font-medium text-white hover:bg-[#4F46E5] active:scale-[0.97] transition hover:shadow-lg hover:shadow-indigo-500/25">
               Convidar
             </button>
           </form>
@@ -86,9 +88,9 @@ export function TeamView({
       )}
 
       <p className="text-xs font-medium text-zinc-500 mb-2">Membros ({members.length})</p>
-      <div className="rounded-xl border bg-white overflow-hidden mb-6">
+      <div className="fd-stagger rounded-xl border bg-white overflow-hidden mb-6">
         {members.map((m) => (
-          <div key={m.id} className="flex items-center justify-between gap-3 px-4 py-3 border-b last:border-0">
+          <div key={m.id} className="flex items-center justify-between gap-3 px-4 py-3 border-b last:border-0 transition-colors hover:bg-zinc-50/70">
             <div className="min-w-0">
               <p className="text-sm font-medium text-zinc-900 truncate">
                 {relField(m.profiles, 'full_name') || relField(m.profiles, 'email') || 'Sem nome'}
@@ -106,9 +108,9 @@ export function TeamView({
       {invitations.length > 0 && (
         <>
           <p className="text-xs font-medium text-zinc-500 mb-2">Convites pendentes ({invitations.length})</p>
-          <div className="rounded-xl border bg-white overflow-hidden">
+          <div className="fd-stagger rounded-xl border bg-white overflow-hidden">
             {invitations.map((inv) => (
-              <div key={inv.id} className="flex items-center justify-between gap-3 px-4 py-3 border-b last:border-0">
+              <div key={inv.id} className="flex items-center justify-between gap-3 px-4 py-3 border-b last:border-0 transition-colors hover:bg-zinc-50/70">
                 <div className="min-w-0">
                   <p className="text-sm text-zinc-900 truncate">{inv.email}</p>
                   <p className="text-xs text-zinc-500">{roleLabels[inv.role]}</p>

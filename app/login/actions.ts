@@ -1,8 +1,10 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { DEMO_COOKIE } from '@/lib/demo'
 
 function safeReturnTo(value: FormDataEntryValue | null) {
   const path = typeof value === 'string' ? value : ''
@@ -25,6 +27,8 @@ export async function login(formData: FormData) {
     redirect(`/login?${q.toString()}`)
   }
 
+  const cookieStore = await cookies()
+  cookieStore.delete(DEMO_COOKIE)
   revalidatePath('/', 'layout')
   redirect(returnTo)
 }
@@ -49,6 +53,8 @@ export async function signup(formData: FormData) {
     redirect(`/signup?${q.toString()}`)
   }
 
+  const cookieStore = await cookies()
+  cookieStore.delete(DEMO_COOKIE)
   revalidatePath('/', 'layout')
   redirect(returnTo === '/app' ? '/onboarding' : returnTo)
 }

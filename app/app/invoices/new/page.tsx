@@ -24,7 +24,7 @@ export default async function NewInvoicePage() {
         Voltar a Invoices
       </Link>
 
-      <div className="rounded-xl border bg-white p-4 sm:p-6">
+      <div className="fd-reveal rounded-xl border bg-white p-4 sm:p-6">
         <h1 className="text-lg font-semibold mb-4">Nova factura</h1>
         <InvoiceForm
           customers={customers ?? []}

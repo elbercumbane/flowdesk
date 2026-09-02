@@ -39,13 +39,23 @@ export function AppSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
             key={item.href}
             href={item.href}
             onClick={onNavigate}
-            className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors ${
+            aria-current={isActive ? 'page' : undefined}
+            className={`group relative flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-all duration-200 ${
               isActive
                 ? 'bg-[#EEF2FF] text-[#4F46E5] font-medium'
-                : 'text-zinc-600 hover:bg-zinc-50'
+                : 'text-zinc-600 hover:translate-x-0.5 hover:bg-zinc-50 hover:text-zinc-900'
             }`}
           >
-            <item.icon className="h-4 w-4" />
+            <span
+              className={`absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-[#4F46E5] transition-all duration-300 ${
+                isActive ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+              }`}
+            />
+            <item.icon
+              className={`h-4 w-4 transition-transform duration-200 ${
+                isActive ? '' : 'group-hover:scale-110'
+              }`}
+            />
             {item.label}
           </Link>
         )
