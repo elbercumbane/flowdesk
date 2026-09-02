@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import { redirect, notFound } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Download } from 'lucide-react'
 import { InvoiceStatusSelect } from '../invoice-status-select'
@@ -18,7 +18,7 @@ export default async function InvoiceDetailPage({
   const { id } = await params
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) return null
 
   const { data: invoice, error } = await supabase
     .from('invoices')

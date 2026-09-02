@@ -1,5 +1,4 @@
 import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
 import { RevenueChart } from '@/components/dashboard/revenue-chart'
 import { AnimatedNumber } from '@/components/dashboard/animated-number'
 import { Users, Briefcase, FileWarning, DollarSign } from 'lucide-react'
@@ -7,7 +6,7 @@ import { Users, Briefcase, FileWarning, DollarSign } from 'lucide-react'
 export default async function AppDashboard() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) return null
 
   const [
     { count: customersCount },

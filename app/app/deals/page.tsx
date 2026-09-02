@@ -1,11 +1,10 @@
 import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
 import { DealsView } from './deals-view'
 
 export default async function DealsPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) return null
 
   const { data: deals, error } = await supabase
     .from('deals')

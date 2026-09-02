@@ -1,5 +1,4 @@
 import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { InvoiceForm } from './invoice-form'
@@ -7,7 +6,7 @@ import { InvoiceForm } from './invoice-form'
 export default async function NewInvoicePage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) return null
 
   const [{ data: customers }, { data: deals }, { count }] = await Promise.all([
     supabase.from('customers').select('id, name').order('name'),

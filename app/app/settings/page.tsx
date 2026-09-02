@@ -1,5 +1,4 @@
 import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { logout } from '@/app/login/logout'
 import { DEMO_COOKIE } from '@/lib/demo'
@@ -9,7 +8,7 @@ export default async function SettingsPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) return null
 
   const cookieStore = await cookies()
   const isDemo =

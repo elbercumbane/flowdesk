@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import { redirect, notFound } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Mail, Phone, Building2 } from 'lucide-react'
 import { DeleteCustomerButton } from './delete-button'
@@ -18,7 +18,7 @@ export default async function CustomerDetailPage({
   const { id } = await params
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) return null
 
   const { data: customer, error } = await supabase
     .from('customers')

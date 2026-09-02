@@ -1,11 +1,10 @@
 import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
 import { TasksView } from './tasks-view'
 
 export default async function TasksPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) return null
 
   const { data: tasks, error } = await supabase
     .from('tasks')

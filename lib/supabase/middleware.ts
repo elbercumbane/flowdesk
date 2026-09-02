@@ -1,6 +1,18 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
-import { DEMO_COOKIE, demoCookieOptions } from '@/lib/demo'
+import { DEMO_COOKIE } from '@/lib/demo'
+
+function isPrefetch(request: NextRequest) {
+  return (
+    request.headers.get('Next-Router-Prefetch') === '1' ||
+    request.headers.get('x-middleware-prefetch') === '1' ||
+    request.headers.get('Purpose') === 'prefetch'
+  )
+}
+
+function hasAuthCookie(request: NextRequest) {
+  return request.cookies.getAll().some((cookie) => cookie.name.includes('-auth-token'))
+}
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request })
@@ -43,6 +55,14 @@ export async function updateSession(request: NextRequest) {
   }
 
   if (!user && onApp) {
+    if (isPrefetch(request)) {
+      return new NextResponse(null, { status: 204 })
+    }
+
+    if (hasAuthCookie(request)) {
+      return supabaseResponse
+    }
+
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     url.search = ''
@@ -50,9 +70,6 @@ export async function updateSession(request: NextRequest) {
     supabaseResponse.cookies.getAll().forEach((cookie) => {
       redirectRes.cookies.set(cookie.name, cookie.value)
     })
-    if (isDemo) {
-      redirectRes.cookies.set(DEMO_COOKIE, '', { ...demoCookieOptions(), maxAge: 0 })
-    }
     return redirectRes
   }
 

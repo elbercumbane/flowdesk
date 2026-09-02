@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard,
@@ -35,7 +34,7 @@ export function AppSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
           : pathname.startsWith(item.href)
 
         return (
-          <Link
+          <a
             key={item.href}
             href={item.href}
             onClick={onNavigate}
@@ -57,7 +56,7 @@ export function AppSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
               }`}
             />
             {item.label}
-          </Link>
+          </a>
         )
       })}
     </nav>

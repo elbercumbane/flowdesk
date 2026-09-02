@@ -1,5 +1,4 @@
 import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
 import { Users, Briefcase, CheckSquare, FileText, Sparkles } from 'lucide-react'
 
 const iconMap: Record<string, any> = {
@@ -31,7 +30,7 @@ function timeAgo(dateStr: string) {
 export default async function ActivityPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) return null
 
   const { data: logs, error } = await supabase
     .from('activity_logs')

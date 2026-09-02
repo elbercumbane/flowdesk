@@ -1,5 +1,4 @@
 import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { createTask } from '../actions'
@@ -12,7 +11,7 @@ export default async function NewTaskPage({
   const { error } = await searchParams
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) return null
 
   const [{ data: deals }, { data: customers }] = await Promise.all([
     supabase.from('deals').select('id, title').order('title'),
